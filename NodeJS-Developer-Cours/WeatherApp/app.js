@@ -22,7 +22,7 @@ request({url : urlGeoCode, json: true}, (error, response, body) => {
             } else {
                 console.log(body.current.weather_descriptions[0])
                 console.log("It is currently " + body.current.temperature + " degress out, It feels like " + body.current.feelslike + " degress out.")
-            }
+            } 
         })
     }
 })
