@@ -1,21 +1,22 @@
 const geocode = require('./utils/geocode')
 const weatherstack = require('./utils/weatherstack')
+
 const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 })
 
 readline.question("Write city name: ", city => {
-    geocode(city, (error, data) => {
+    geocode(city, (error, {latitude, longitude, location} = {}) => {
         if (error){
             return console.log(error)
         }
-        weatherstack(data.latitude, data.longitude, (error, dataForcast) => {
+        weatherstack(latitude, longitude, (error, { temperature, feelslike } = {}) => {
             if (error) {
                 return console.log(error)
             }
-            console.log(data.location)
-            console.log("It is currently " + dataForcast.temperature + " degress out, It feels like " + dataForcast.feelslike + " degress out.")
+            console.log(location)
+            console.log("It is currently " + temperature + " degress out, It feels like " + feelslike + " degress out.")
         })
         readline.close()
     })
